@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700');
+*
+{
+    box-sizing:border-box;
+}
+html,body
+{
+    padding:0;
+    margin:0;
+    width:100%;
+    height:100%;
+    background:#fcfcfc;
+    font-family:'Open Sans', sans-serif;
+    font-size:16px;
+    color:#333;
+}
+body
+{
+    display:flex;
+    flex-direction:column;
+}
+.content
+{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    flex:1 0 auto;
+}
+
+/* HEADER */
+header
+{
+    background:#333;
+    color:#fff;
+    height:60px;
+    padding:0 30px;
+    display:flex;
+    align-items:center;
+    flex:none;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+    box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+}
+header h1
+{
+    margin:0;
+    padding:0;
+    font-size:1.5em;
+    font-weight:300;
+}
+/* END HEADER */
+
+/* GAMEBOARD */
+.gameboard_container
+{
+    padding:15px;
+    width:calc(100% - 30px);
+    max-width:calc(95vh - 90px);
+    min-width:300px;
+}
+.gameboard
+{
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    background:#333;
+    grid-gap: 10px;
+    width:100%;
+    margin:0 auto;
+}
+.gameboard_row
+{
+    display:grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    grid-gap:  10px;
+    position:relative;
+}
+
+.gameboard_square
+{
+    background:#fcfcfc;
+    padding-bottom:100%;
+    position:relative;
+}
+.square_x::before,
+.square_o::before
+{
+    content:'';
+    font-size:60px;
+    position:absolute;
+    top:7.5%;
+    left:7.5%;
+    right:7.5%;
+    bottom:7.5%;
+    background-size:contain;
+    background-position:center center;
+}
+.square_x::before
+{
+    background-image:url(x_sq.svg);
+}
+.square_o::before
+{
+    background-image:url(o.svg);
+}
+
+@keyframes fade{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-webkit-keyframes fade{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.highlighted::after,
+.selected::after
+{
+    content:'';
+    display:block;
+    position:absolute;
+    left:-20px;
+    right:-20px;
+    top:-20px;
+    bottom:-20px;
+    z-index:10;
+    animation:fade .2s;
+    -webkit-animation: fade .2s;
+    animation-fill-mode:both;
+    -webkit-animation-fill-mode:both;
+}
+.highlighted::after{border:10px solid #008ac9;}
+.selected::after{border:10px solid #1cd61c;}
+
+.gameboard_square.highlighted::after,
+.gameboard_square.selected::after
+{
+    left:-10px;
+    right:-10px;
+    top:-10px;
+    bottom:-10px;
+    z-index:11;
+}
+/* END GAMEBOARD */
+
+/* TURN BOX */
+#turn_box
+{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+    box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.2);
+    height:50px;
+    padding:0 15px;
+    transition:background .2s;
+}
+#turn_box.p1
+{
+    background:#333;
+    color:#efefef;
+}
+#turn_box.p2
+{
+    background:#efefef;
+    color:#333;
+}
+#turn_box_icon
+{
+    height:1em;
+    margin-right:10px;
+}
+.p1 #turn_box_icon
+{
+    filter:invert(100);
+}
+/* END TURN BOX */
+
+/* ALERTS */
+.alert_bg
+{
+    z-index:99;
+    background:rgba(50,50,50,.5);
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    width:100vw;
+}
+.alert_box
+{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:#f5f5f5;
+    padding:30px;
+    line-height:1.4;
+    width:100%;
+    max-width:600px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.4);
+    -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.4);
+    box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.4);
+}
+.alert_title
+{
+    margin:0 0 0.67em;
+    padding:0 0 0.67em;
+    line-height:1.1;
+    font-size:1.5em;
+    border-bottom:1px solid #ddd;
+    font-weight:200;
+}
+.alert_text
+{
+    margin:0 0 20px;
+    padding:0;
+    font-weight:200;
+}
+.alert_btnbox
+{
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-end;
+    width:100%;
+}
+.alert_btn
+{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    appearance:none;
+    -webkit-appearance: none;
+    border:0;
+    background:#008ac9;
+    height:50px;
+    cursor:pointer;
+    padding:0 30px;
+    color:#efefef;
+    font-size:1em;
+}
+.alert_btn:hover,
+.alert_btn:focus,
+.alert_btn:active
+{
+    background:#0077ad;
+}
+/* END ALERTS */
