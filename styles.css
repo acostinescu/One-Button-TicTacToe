@@ -160,6 +160,7 @@ header h1
     height:50px;
     padding:0 15px;
     transition:background .2s;
+    z-index:98;
 }
 #turn_box.p1
 {
