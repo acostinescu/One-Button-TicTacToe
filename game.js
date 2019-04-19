@@ -266,7 +266,7 @@ function closeAlert(callback){
 }
 
 function createHelpAlert(){
-    createAlert("Welcome to One-Button TicTacToe!", "This game is played exclusively using the 'a' key. Tap 'a' to cycle through rows then press and hold to select a row. Once a row is selected and the outline turns green, tap to cycle through the boxes in the row and press and hold to mark a box with an X or an O. Double tap to back out of a row and return to row selection. <br /><br /><strong>Press 'a' or click 'Okay' to get started!</strong>");
+    createAlert("Welcome to One-Button TicTacToe!", "This game is played exclusively using the 'a' key. Tap 'a' to cycle through rows then press and hold to select a row. Once a row is selected and the outline turns green, tap to cycle through the boxes in the row and press and hold to mark a box with an X or an O. Double tap to deselect the row and return to row selection. <br /><br /><strong>Press 'a' or click 'Okay' to get started!</strong>");
 }
 
 $(document).ready(function(){
