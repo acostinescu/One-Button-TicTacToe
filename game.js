@@ -274,6 +274,9 @@ $(document).ready(function(){
 
 $("#aRestart").click(function(){
     clearBoard();
+    clearHighlightedCol();
+    clearHighlightedRow();
+    clearSelectedRow();
 })
 $("#aHelp").click(function(){
     createHelpAlert();
