@@ -269,7 +269,12 @@ function createHelpAlert(){
 }
 
 $(document).ready(function(){
-    createHelpAlert();
+    // Only show the help dialog the first time the page is loaded
+    if(document.cookie != "helpshown=true")
+    {
+        document.cookie = "helpshown=true"
+        createHelpAlert();
+    }
 });
 
 $("#aRestart").click(function(){
