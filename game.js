@@ -18,6 +18,7 @@ var blockKeyupFlag = false;
 var currentPlayer = 0;
 const PLAYER_ONE = 0;
 const PLAYER_TWO = 1;
+const TIE_GAME = -1;
 
 $(document).keypress(function(e){
     if(e.key == "a" && !keyDownFlag){
@@ -192,45 +193,43 @@ function advanceTurn(setTurn){
 const squareList = $(".gameboard_square");
 const leftRightDiag = squareList.eq(0).add(squareList.eq(4)).add(squareList.eq(8));
 const rightLeftDiag = squareList.eq(2).add(squareList.eq(4)).add(squareList.eq(6));
-const restartMessage = "Press 'a' or click 'Okay' to play again.";
+const restartMessage = "<strong>Press 'a' or click 'Okay' to play again.</strong>";
 function checkState(){
-
     var winner;
 
     // Row Winner
     for(var row = 0; row <= 6; row += 3){
         var currRow = squareList.slice(row, row + 3);
-
-        if(currRow.filter(".square_x").length == 3) winner = 0;
-        else if (currRow.filter(".square_o").length == 3) winner = 1;
+        if(currRow.filter(".square_x").length == 3) winner = PLAYER_ONE;
+        else if (currRow.filter(".square_o").length == 3) winner = PLAYER_TWO;
     }
 
     // Column Winner
     for(var col = 0; col < 3; col++){
         var currCol = squareList.eq(col).add(squareList.eq(col + 3)).add(squareList.eq(col + 6));
-
-        if(currCol.filter(".square_x").length == 3) winner = 0;
-        else if (currCol.filter(".square_o").length == 3) winner = 1;
+        if(currCol.filter(".square_x").length == 3) winner = PLAYER_ONE;
+        else if (currCol.filter(".square_o").length == 3) winner = PLAYER_TWO;
     }
 
     // Left to Right Diagonal Winner
-    if(leftRightDiag.filter(".square_x").length == 3) winner = 0;
-    else if (leftRightDiag.filter(".square_o").length == 3) winner = 1;
+    if(leftRightDiag.filter(".square_x").length == 3) winner = PLAYER_ONE;
+    else if (leftRightDiag.filter(".square_o").length == 3) winner = PLAYER_TWO;
 
     // Right to Left Diagonal Winner
-    if (rightLeftDiag.filter(".square_x").length == 3) winner = 0;
-    else if (rightLeftDiag.filter(".square_o").length == 3) winner = 1;
+    if (rightLeftDiag.filter(".square_x").length == 3) winner = PLAYER_ONE;
+    else if (rightLeftDiag.filter(".square_o").length == 3) winner = PLAYER_TWO;
 
-    // Board is full - tied game
-    if (squareList.filter(".marked").length == 9) winner = -1;
+    // Board is full and no previous winner - tied game
+    if (squareList.filter(".marked").length == 9 && winner == null) winner = TIE_GAME;
 
-    if (winner == 0){
+    // If we have a game ending state, show the winner or tie alert then clear the board
+    if (winner == PLAYER_ONE){
         createAlert ("Player One Wins!", restartMessage, function(){clearBoard()});
     }
-    else if (winner == 1){
+    else if (winner == PLAYER_TWO){
         createAlert("Player Two Wins!", restartMessage, function(){clearBoard()});
     }
-    else if(winner == -1){
+    else if(winner == TIE_GAME){
         createAlert("Tied Game!", restartMessage, function(){clearBoard()});
     }
 
@@ -243,7 +242,7 @@ function clearBoard(){
     selectionMode = SMODE_ROW;
 }
 
-// ALERTS
+
 var prevSelectionMode; // Track whatever mode we were in before the alert was made
 function createAlert(title, text, callback){
     prevSelectionMode = selectionMode;
@@ -272,4 +271,10 @@ function createHelpAlert(){
 $(document).ready(function(){
     createHelpAlert();
 });
-// END ALERTS 
+
+$("#aRestart").click(function(){
+    clearBoard();
+})
+$("#aHelp").click(function(){
+    createHelpAlert();
+});
