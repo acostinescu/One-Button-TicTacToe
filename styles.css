@@ -139,11 +139,11 @@ header h1 img
 }
 .square_x::before
 {
-    background-image:url(x_sq.svg);
+    background-image:url(images/x_sq.svg);
 }
 .square_o::before
 {
-    background-image:url(o.svg);
+    background-image:url(images/o.svg);
 }
 
 @keyframes fade{

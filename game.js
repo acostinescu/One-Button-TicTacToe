@@ -181,12 +181,12 @@ function advanceTurn(setTurn){
 
     if(currentPlayer == PLAYER_ONE) {
         turnBox.removeClass("p2").addClass("p1");
-        turnBoxIcon.attr("src", "x_sq.svg");
+        turnBoxIcon.attr("src", "images/x_sq.svg");
         turnBoxText.html("Player <strong>One's</strong> Turn");
     }
     else {
         turnBox.removeClass("p1").addClass("p2");
-        turnBoxIcon.attr("src", "o.svg");
+        turnBoxIcon.attr("src", "images/o.svg");
         turnBoxText.html("Player <strong>Two's</strong> Turn");
     }
 }
