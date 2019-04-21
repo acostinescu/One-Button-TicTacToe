@@ -48,6 +48,15 @@ header h1
     padding:0;
     font-size:1.5em;
     font-weight:300;
+    display:flex;
+    align-items:center;
+    flex:1 0 auto;
+}
+header h1 img
+{
+    height:2rem;
+    margin-right:.5em;
+    display:block;
 }
 .header_btnbox
 {
@@ -255,7 +264,7 @@ header h1
 }
 .alert_text
 {
-    margin:0 0 20px;
+    margin:0 0 30px;
     padding:0;
     font-weight:200;
 }

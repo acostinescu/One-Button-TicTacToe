@@ -1,6 +1,7 @@
 const rowList = $(".gameboard_row");
 const holdTime = 700;
 const doublePressTime = 175;
+const KEYBOARD_BUTTON = " ";
 
 var selectionMode = 0;
 const SMODE_ROW = 0;
@@ -21,7 +22,7 @@ const PLAYER_TWO = 1;
 const TIE_GAME = -1;
 
 $(document).keypress(function(e){
-    if(e.key == "a" && !keyDownFlag){
+    if(e.key == KEYBOARD_BUTTON && !keyDownFlag){
         
         // Row selection mode
         if(selectionMode == SMODE_ROW) 
@@ -67,7 +68,7 @@ $(document).keypress(function(e){
 });
 
 $(document).on("keyup", function(e){
-    if(e.key == "a"){
+    if(e.key == KEYBOARD_BUTTON){
         
         // When the key is lifted, clear the timeout function that handles the key hold event
         clearTimeout(keyHoldFunc);
@@ -193,7 +194,7 @@ function advanceTurn(setTurn){
 const squareList = $(".gameboard_square");
 const leftRightDiag = squareList.eq(0).add(squareList.eq(4)).add(squareList.eq(8));
 const rightLeftDiag = squareList.eq(2).add(squareList.eq(4)).add(squareList.eq(6));
-const restartMessage = "<strong>Press 'a' or click 'Okay' to play again.</strong>";
+const restartMessage = "<strong>Tap the spacebar or click 'Okay' to play again!</strong>";
 function checkState(){
     var winner;
 
@@ -236,14 +237,16 @@ function checkState(){
     return winner;
 }
 
+// Clear the board, reset the board to player one, and set the selection more to row mode
 function clearBoard(){
     squareList.removeClass("marked").removeClass("square_x").removeClass("square_o");   
     advanceTurn(0);
     selectionMode = SMODE_ROW;
 }
 
-
 var prevSelectionMode; // Track whatever mode we were in before the alert was made
+
+// Create an alert with title, text, and an optional callback
 function createAlert(title, text, callback){
     prevSelectionMode = selectionMode;
     selectionMode = SMODE_ALERT;
@@ -255,9 +258,9 @@ function createAlert(title, text, callback){
     var alertButton = $("<button class='alert_btn'>Okay!</button>").on("click", function(){
         closeAlert(callback);
     }).appendTo(alertButtonBox);
-
     background.appendTo($("body"));
 }
+// Close any existing alert, revert the selection mode, and call the optional callback function
 function closeAlert(callback){
     selectionMode = prevSelectionMode;
     $(".alert_bg").remove();
@@ -265,7 +268,15 @@ function closeAlert(callback){
 }
 
 function createHelpAlert(){
-    createAlert("Welcome to One-Button TicTacToe!", "This game is played exclusively using the 'a' key. Tap 'a' to cycle through rows then press and hold to select a row. Once a row is selected and the outline turns green, tap to cycle through the boxes in the row and press and hold to mark a box with an X or an O. Double tap to deselect the row and return to row selection. <br /><br /><strong>Press 'a' or click 'Okay' to get started!</strong>");
+    var helpTitle = "Welcome to One-Button TicTacToe!";
+    var helpText = "<strong>This game is played using the spacebar:</strong>";
+    helpText    += "<ul>";
+    helpText    += "<li><u>Tap</u> to highlight rows and boxes</li>";
+    helpText    += "<li><u>Press and hold</u> to select a row or mark a box</li>";
+    helpText    += "<li><u>Double-tap</u> to leave a selected row.</li>";
+    helpText    += "</ul><br />";
+    helpText    += "<strong>That's all folks! Tap the spacebar or press 'Okay' to get started!</strong>";
+    createAlert(helpTitle, helpText);
 }
 
 $(document).ready(function(){
