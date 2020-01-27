@@ -46,7 +46,7 @@ header h1
 {
     margin:0;
     padding:0;
-    font-size:1.5em;
+    font-size:1.25em;
     font-weight:300;
     display:flex;
     align-items:center;
@@ -88,6 +88,13 @@ header h1 img
 .header_btn:hover img
 {
     transform:rotate(-360deg);
+}
+@media (min-width:768px)
+{
+    header h1
+    {
+        font-size:1.5em;
+    }
 }
 /* END HEADER */
 

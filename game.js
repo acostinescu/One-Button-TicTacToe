@@ -25,7 +25,7 @@ $(document).keypress(function(e){
     if(e.key == KEYBOARD_BUTTON && !keyDownFlag){
         
         // Row selection mode
-        if(selectionMode == SMODE_ROW) 
+        if(selectionMode == SMODE_ROW)
         {
             // Check for holding key
             keyHoldFunc = setTimeout(function(){
